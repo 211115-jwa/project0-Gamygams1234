@@ -2,6 +2,7 @@ package com.bikedirectory.data;
 import java.util.Set;
 
 
+
 public interface GenericDAO<D> {
 	public int create(D dataToAdd);
 	public D getById(int id);
