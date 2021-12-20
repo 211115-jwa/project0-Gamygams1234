@@ -9,6 +9,10 @@ import java.util.Set;
 
 public class UserServiceImpl implements UserService {
 	private BikeDAO bikeDao = new BikePostgres();
+	
+	
+
+	
 
 	@Override
 	public Set<Bike> viewAllBikes() {

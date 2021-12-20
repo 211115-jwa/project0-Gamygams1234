@@ -32,8 +32,38 @@ public class UserServiceTest {
 	private UserService userServ = new UserServiceImpl();
 	private static Set<Bike> mockBikes;
 	
+	
+	@BeforeAll
+	public static void mockBikesSetup() {
+		mockBikes = new HashSet<>();
+		
+		for (int i=1; i<=5; i++) {
+			Bike bike = new Bike();
+			bike.setId(i);
+			if (i<3)
+				bike.setRider("Dave Mirra");
+			mockBikes.add(bike);
+		}
+	}
+	
 	@Test
 	public void addNewBikeSuccessfully() {
+
+
+		Bike newBike = new Bike();
+		newBike.setId(2);
+		newBike.setYear(1999);
+		newBike.setBrand("Felt");
+		newBike.setModel("Franchise Killer");
+		newBike.setRider("Scotty Cranmer");
+		mockBikes.add(newBike);
+		
+		assertEquals(6, mockBikes.size());
+	}
+	
+	
+	@Test
+	public void viewAllBikes() {
 		Bike bike = new Bike();
 		
 		when(bikeDao.create(bike)).thenReturn(10);
@@ -42,6 +72,7 @@ public class UserServiceTest {
 		
 		assertNotEquals(0, newId);
 	}
+	
 	
 	@Test
 	public void editBikeSuccessfully() {
@@ -52,12 +83,11 @@ public class UserServiceTest {
 		bike.setModel("Franchise Killer");
 		bike.setRider("Scotty Cranmer");
 		
-	
 		when(bikeDao.getById(2)).thenReturn(bike);
 		doNothing().when(bikeDao).update(Mockito.any(Bike.class));
-		
+			
 		Bike actualBike = userServ.updateBike(bike);
-		
+			
 		assertEquals(bike, actualBike);
 	}
 	
@@ -101,6 +131,15 @@ public class UserServiceTest {
 		
 		Bike actualBike = userServ.getBikeById(2);
 		assertNull(actualBike);
+	}
+	
+	@Test
+	public void viewByRider() {
+		when(bikeDao.getByRider("Dave Mirra")).thenReturn(mockBikes);
+		
+		Set<Bike> actualBikes = userServ.searchByRider("Dave Mirra");
+		
+		assertEquals(mockBikes, actualBikes);
 	}
 
 
