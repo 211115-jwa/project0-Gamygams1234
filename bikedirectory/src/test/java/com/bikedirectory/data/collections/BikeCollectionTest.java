@@ -31,23 +31,13 @@ class BikeCollectionTest {
 
     @Test
     void update() {
+        Bike actual = bikeDao.getById(1);
+        
+        actual.setRider("Dave Mirra");
+        assertEquals("Dave Mirra", actual.getRider());
     }
+    
 
-    @Test
-    void delete() {
-    }
-
-    @Test
-    void getByRider() {
-    }
-
-    @Test
-    void getByModel() {
-    }
-
-    @Test
-    void getByBrand() {
-    }
 
     @Test
     void getByYear() {
