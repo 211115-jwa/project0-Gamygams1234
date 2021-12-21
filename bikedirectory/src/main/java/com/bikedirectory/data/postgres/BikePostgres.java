@@ -197,7 +197,7 @@ public class BikePostgres implements BikeDAO{
 
 	@Override
 	public Set<Bike> getByModel(String model) {
-		Set<Bike> allBikes = new HashSet<>();
+		Set<Bike> modelBikes = new HashSet<>();
 
 		try (Connection conn = connUtil.getConnection()) {
 			String sql = "select * from bike where lower(model)=?";
@@ -219,19 +219,19 @@ public class BikePostgres implements BikeDAO{
 				bike.setMetal(resultSet.getString("metal"));
 				bike.setRider(resultSet.getString("rider"));
 
-				allBikes.add(bike);
+				modelBikes.add(bike);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return allBikes;
+		return modelBikes;
 	}
 
 	@Override
 	public Set<Bike> getByBrand(String brand) {
-		Set<Bike> allBikes = new HashSet<>();
+		Set<Bike> brandBikes = new HashSet<>();
 
 		try (Connection conn = connUtil.getConnection()) {
 			String sql = "select * from bike where lower(brand)= ?";
@@ -253,19 +253,19 @@ public class BikePostgres implements BikeDAO{
 				bike.setMetal(resultSet.getString("metal"));
 				bike.setRider(resultSet.getString("rider"));
 
-				allBikes.add(bike);
+				brandBikes.add(bike);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return allBikes;
+		return brandBikes;
 	}
 
 	@Override
 	public Set<Bike> getByYear(int year) {
-		Set<Bike> allBikes = new HashSet<>();
+		Set<Bike> yearBikes = new HashSet<>();
 
 		try (Connection conn = connUtil.getConnection()) {
 			String sql = "select * from bike where yr=?";
@@ -287,14 +287,14 @@ public class BikePostgres implements BikeDAO{
 				bike.setMetal(resultSet.getString("metal"));
 				bike.setRider(resultSet.getString("rider"));
 
-				allBikes.add(bike);
+				yearBikes.add(bike);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return allBikes;
+		return yearBikes;
 	}
 
 
